@@ -20,7 +20,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       <div className="space-y-3 p-4 bg-gray-100">
         <h3 className="line-clamp-2 text-sm font-semibold">{product.title}</h3>
 
-        <p className="line-clamp-2 text-xs leading-5 text-muted-foreground">
+        <p className="line-clamp-2 text-xs leading-5">
           {product.description}
         </p>
 

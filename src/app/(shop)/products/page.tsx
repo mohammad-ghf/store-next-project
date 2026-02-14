@@ -1,5 +1,4 @@
 import Link from "next/link";
-
 import ProductCard from "@/features/products/components/ProductCard";
 import { products } from "@/features/products/data/products";
 import ProtectedRoute from "@/features/auth/components/ProtectedRoute";

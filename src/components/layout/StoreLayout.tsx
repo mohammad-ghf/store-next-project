@@ -1,18 +1,18 @@
-import Footer from "./Footer"
-import Header from "./Header"
+import Footer from "./Footer";
+import Header from "./Header";
 
 type StoreLayoutProps = {
-    children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
-const StoreLayout = ({children} : StoreLayoutProps) => {
+const StoreLayout = ({ children }: StoreLayoutProps) => {
   return (
-    <div className="">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+    <div>
+      <Header />
+      <main className="flex-1">{children}</main>
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default StoreLayout
+export default StoreLayout;

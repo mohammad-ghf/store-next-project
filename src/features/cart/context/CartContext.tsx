@@ -63,15 +63,15 @@ export function CartProvider({ children }: CartProviderProps) {
 
   const handleDeleteProduct = (id: string) => {
     setCartItems((prev) => {
-      return prev.filter(item => item.id !== id)
-    })
-  }
+      return prev.filter((item) => item.id !== id);
+    });
+  };
 
   useEffect(() => {
     const storedCartItem = localStorage.getItem("cartItems");
 
     if (storedCartItem) {
-      setCartItems(JSON.parse(storedCartItem))
+      setCartItems(JSON.parse(storedCartItem));
     }
 
     setIsInitialized(true);
@@ -88,7 +88,7 @@ export function CartProvider({ children }: CartProviderProps) {
         cartItems,
         handleIncreaseProduct,
         handleDecreaseProduct,
-        handleDeleteProduct
+        handleDeleteProduct,
       }}
     >
       {children}
