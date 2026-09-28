@@ -17,7 +17,7 @@ const Footer = () => {
               فروشگاه
             </Link>
 
-            <p className="mt-3 max-w-sm text-sm leading-6 text-muted-foreground">
+            <p className="mt-3 text-sm">
               خریدی به صرفه با بهترین قیمت
             </p>
           </div>
@@ -31,7 +31,7 @@ const Footer = () => {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className="text-sm"
                 >
                   {link.label}
                 </Link>
@@ -43,7 +43,7 @@ const Footer = () => {
           <div>
             <h2 className="mb-3 font-semibold">ارتباط با ما</h2>
 
-            <p className="text-sm leading-6 text-muted-foreground">
+            <p className="text-sm">
                 برای اطلاع از محصولات با ما در ارتباط باشید.
             </p>
           </div>

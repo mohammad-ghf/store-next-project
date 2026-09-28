@@ -1,11 +1,11 @@
-import { Button } from '@/components/ui/button'
+import HomeCarousel from "@/components/home/HomeCarousel";
 
 const page = () => {
   return (
     <div>
-      خانه
+      <HomeCarousel />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

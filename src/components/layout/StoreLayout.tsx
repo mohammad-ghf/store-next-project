@@ -7,7 +7,7 @@ type StoreLayoutProps = {
 
 const StoreLayout = ({children} : StoreLayoutProps) => {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="">
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
