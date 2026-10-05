@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, Trash } from "lucide-react";
 import { Product } from "../types/product.types";
 import { useCart } from "@/features/cart/context/CartContext";
 
@@ -9,10 +9,14 @@ type AddToCartProps = {
 };
 
 const AddToCartBtn = ({ product }: AddToCartProps) => {
-  const { handleIncreaseProduct, cartItems, handleDecreaseProduct } = useCart();
+  const {
+    handleIncreaseProduct,
+    cartItems,
+    handleDecreaseProduct,
+    handleDeleteProduct,
+  } = useCart();
 
   const cartItem = cartItems.find((item) => item.id === product.id);
-  
 
   return (
     <div>
@@ -31,7 +35,9 @@ const AddToCartBtn = ({ product }: AddToCartProps) => {
           >
             <Plus />
           </Button>
+
           <span>{cartItem.quantity}</span>
+
           <Button
             onClick={() => handleDecreaseProduct(product.id)}
             className={"cursor-pointer"}
@@ -39,6 +45,12 @@ const AddToCartBtn = ({ product }: AddToCartProps) => {
           >
             <Minus />
           </Button>
+          <div
+            onClick={() => handleDeleteProduct(product.id)}
+            className="pr-2 cursor-pointer"
+          >
+            <Trash />
+          </div>
         </div>
       )}
     </div>

@@ -1,3 +1,4 @@
+import ProtectedRoute from "@/features/auth/components/ProtectedRoute";
 import ProductCard from "@/features/products/components/ProductCard";
 import { products } from "@/features/products/data/products";
 
@@ -13,13 +14,15 @@ const categoryPage = async ({ params }: CategoryPageProps) => {
   );
 
   return (
-    <main className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {categoryProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
-    </main>
+    <ProtectedRoute>
+      <main className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {categoryProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </main>
+    </ProtectedRoute>
   );
 };
 

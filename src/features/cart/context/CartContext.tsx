@@ -16,6 +16,7 @@ type CartContextType = {
   cartItems: CartItem[];
   handleIncreaseProduct: (id: string) => void;
   handleDecreaseProduct: (id: string) => void;
+  handleDeleteProduct: (id: string) => void;
 };
 
 const CartContext = createContext({} as CartContextType);
@@ -60,6 +61,12 @@ export function CartProvider({ children }: CartProviderProps) {
     });
   };
 
+  const handleDeleteProduct = (id: string) => {
+    setCartItems((prev) => {
+      return prev.filter(item => item.id !== id)
+    })
+  }
+
   useEffect(() => {
     const storedCartItem = localStorage.getItem("cartItems");
 
@@ -81,6 +88,7 @@ export function CartProvider({ children }: CartProviderProps) {
         cartItems,
         handleIncreaseProduct,
         handleDecreaseProduct,
+        handleDeleteProduct
       }}
     >
       {children}

@@ -1,5 +1,5 @@
 "use client";
-import { Menu, ShoppingCart, User } from "lucide-react";
+import { LogOut, Menu, ShoppingCart, User } from "lucide-react";
 import Link from "next/link";
 import {
   Sheet,
@@ -9,12 +9,15 @@ import {
   SheetHeader,
 } from "../ui/sheet";
 import { Button } from "../ui/button";
+import { useAuth } from "@/features/auth/context/AuthContext";
 
 const Header = () => {
   const navigationItems = [
     { href: "/", label: "خانه" },
     { href: "/products", label: "محصولات" },
   ];
+
+  const { isAuthComplate, logout } = useAuth();
 
   return (
     <header className="border-b">
@@ -63,25 +66,36 @@ const Header = () => {
 
         {/* icons */}
         <div className="flex items-center gap-2">
-          <Button variant="ghost">
-            <Link
-              href="/cart"
-              className="relative rounded-md p-2 transition-colors hover:bg-muted"
-              aria-label="سبد خرید"
-            >
-              <ShoppingCart className="size-5" />
-            </Link>
-          </Button>
+          {isAuthComplate && (
+            <Button variant="ghost">
+              <Link
+                href="/cart"
+                className="relative rounded-md p-2 transition-colors hover:bg-muted"
+                aria-label="سبد خرید"
+              >
+                <ShoppingCart className="size-5" />
+              </Link>
+            </Button>
+          )}
 
-          <Button variant="ghost">
-            <Link
-              href="/login"
-              className="rounded-md p-2 transition-colors hover:bg-muted"
-              aria-label="ورود"
-            >
-              <User className="size-5" />
-            </Link>
-          </Button>
+          {!isAuthComplate && (
+            <Button variant="ghost">
+              <Link
+                href="/login"
+                className="rounded-md p-2 transition-colors hover:bg-muted"
+                aria-label="ورود"
+              >
+                <User className="size-5" />
+              </Link>
+            </Button>
+          )}
+
+          {isAuthComplate && (
+            <Button onClick={logout}>
+              {" "}
+              <LogOut />{" "}
+            </Button>
+          )}
         </div>
       </div>
     </header>

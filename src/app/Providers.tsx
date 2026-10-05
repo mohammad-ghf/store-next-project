@@ -1,3 +1,4 @@
+import { AuthProvider } from "@/features/auth/context/AuthContext";
 import { CartProvider } from "@/features/cart/context/CartContext";
 
 type ProviderProps = {
@@ -6,7 +7,9 @@ type ProviderProps = {
 const Providers = ({ children }: ProviderProps) => {
   return (
     <div>
-      <CartProvider>{children}</CartProvider>
+      <AuthProvider>
+        <CartProvider>{children}</CartProvider>
+      </AuthProvider>
     </div>
   );
 };
