@@ -28,6 +28,22 @@ export const products: Product[] = [
     category: "digital",
     image: keyboard,
   },
+  {
+    id: "digital-3",
+    title: "کیبورد مکانیکی",
+    description: "کیبورد مکانیکی با طراحی مناسب برای استفاده طولانی",
+    price: 3200000,
+    category: "digital",
+    image: keyboard,
+  },
+  {
+    id: "digital-4",
+    title: "کیبورد مکانیکی",
+    description: "کیبورد مکانیکی با طراحی مناسب برای استفاده طولانی",
+    price: 3200000,
+    category: "digital",
+    image: keyboard,
+  },
 
   // Home Appliances
   {
@@ -58,6 +74,30 @@ export const products: Product[] = [
   },
   {
     id: "mobile-2",
+    title: "گوشی اقتصادی",
+    description: "گوشی مناسب استفاده روزمره",
+    price: 12500000,
+    category: "mobile",
+    image: Samsung,
+  },
+  {
+    id: "mobile-3",
+    title: "گوشی اقتصادی",
+    description: "گوشی مناسب استفاده روزمره",
+    price: 12500000,
+    category: "mobile",
+    image: Samsung,
+  },
+  {
+    id: "mobile-4",
+    title: "گوشی اقتصادی",
+    description: "گوشی مناسب استفاده روزمره",
+    price: 12500000,
+    category: "mobile",
+    image: Samsung,
+  },
+  {
+    id: "mobile-5",
     title: "گوشی اقتصادی",
     description: "گوشی مناسب استفاده روزمره",
     price: 12500000,

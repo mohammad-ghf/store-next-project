@@ -19,7 +19,7 @@ const AddToCartBtn = ({ product }: AddToCartProps) => {
   const cartItem = cartItems.find((item) => item.id === product.id);
 
   return (
-    <div>
+    <div className="inline-block">
       {!cartItem ? (
         <Button
           onClick={() => handleIncreaseProduct(product.id)}
@@ -28,29 +28,33 @@ const AddToCartBtn = ({ product }: AddToCartProps) => {
           افزودن به سبد
         </Button>
       ) : (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 px-0.5 border-2 shadow">
           <Button
             onClick={() => handleIncreaseProduct(product.id)}
             className={"cursor-pointer"}
+            variant={"ghost"}
           >
-            <Plus />
+            <Plus color="red" />
           </Button>
 
-          <span>{cartItem.quantity}</span>
+          <span className="text-red-600">{cartItem.quantity}</span>
 
-          <Button
-            onClick={() => handleDecreaseProduct(product.id)}
-            className={"cursor-pointer"}
-            variant={"destructive"}
-          >
-            <Minus />
-          </Button>
-          <div
-            onClick={() => handleDeleteProduct(product.id)}
-            className="pr-2 cursor-pointer"
-          >
-            <Trash />
-          </div>
+          {cartItem.quantity !== 1 ? (
+            <Button
+              onClick={() => handleDecreaseProduct(product.id)}
+              className={"cursor-pointer"}
+              variant={"ghost"}
+            >
+              <Minus color="red" />
+            </Button>
+          ) : (
+            <div
+              onClick={() => handleDeleteProduct(product.id)}
+              className="pr-2 cursor-pointer"
+            >
+              <Trash color="red" size={19} />
+            </div>
+          )}
         </div>
       )}
     </div>

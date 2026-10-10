@@ -11,7 +11,9 @@ import {
 import { Button } from "../ui/button";
 import { useAuth } from "@/features/auth/context/AuthContext";
 
+
 const Header = () => {
+
   const navigationItems = [
     { href: "/", label: "خانه" },
     { href: "/products", label: "محصولات" },
@@ -47,22 +49,24 @@ const Header = () => {
         {/* end mobile menu */}
 
         {/* Logo */}
-        <Link
-          href="/"
-          className="text-xl font-bold"
-          aria-label="صفحه اصلی فروشگاه"
-        >
-          فروشگاه
-        </Link>
+        <div className="flex gap-10">
+          <Link
+            href="/"
+            className="text-4xl font-bold"
+            aria-label="صفحه اصلی فروشگاه"
+          >
+            فروشگاه
+          </Link>
 
-        {/* Navbar */}
-        <nav className="hidden items-center gap-6 md:flex">
-          {navigationItems.map((item) => (
-            <Link className="text-lg" key={item.href} href={item.href}>
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+          {/* Navbar */}
+          <nav className="hidden items-center gap-6 md:flex">
+            {navigationItems.map((item) => (
+              <Link className={`text-xl`} key={item.href} href={item.href}>
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
 
         {/* icons */}
         <div className="flex items-center gap-2">
