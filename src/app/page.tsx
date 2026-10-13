@@ -54,7 +54,7 @@ const Home = () => {
           <CarouselContent>
             {slides.map((slide) => (
               <CarouselItem key={slide.href}>
-                <div className="flex justify-center items-center gap-44 rounded-2xl border-2 px-16 py-3 max-h-96">
+                <div className="flex justify-center items-center gap-44 rounded-2xl border-2 px-16 py-3 md:max-h-96">
                   <div className="flex flex-col items-center justify-center text-center">
                     <span className="mb-4 text-sm font-medium">
                       پیشنهاد ویژه فروشگاه
@@ -92,6 +92,11 @@ const Home = () => {
           <CategoryProductSection
             title="محصولات دیجیتال"
             category="digital"
+            products={products}
+          />
+          <CategoryProductSection
+            title="محصولات گیمینگ"
+            category="gaming"
             products={products}
           />
         </div>

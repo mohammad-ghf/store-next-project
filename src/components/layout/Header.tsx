@@ -1,5 +1,6 @@
 "use client";
-import { LogOut, Menu, ShoppingCart, User } from "lucide-react";
+import { ChevronDown, LogOut, Menu, ShoppingCart, User } from "lucide-react";
+import { TbLogin } from "react-icons/tb";
 import Link from "next/link";
 import {
   Sheet,
@@ -10,16 +11,21 @@ import {
 } from "../ui/sheet";
 import { Button } from "../ui/button";
 import { useAuth } from "@/features/auth/context/AuthContext";
-
+import { useState } from "react";
+import { useCart } from "@/features/cart/context/CartContext";
 
 const Header = () => {
-
   const navigationItems = [
     { href: "/", label: "خانه" },
     { href: "/products", label: "محصولات" },
   ];
 
   const { isAuthComplate, logout } = useAuth();
+  const { cartItems } = useCart();
+
+  const [openProfile, setOpenProfile] = useState(false);
+
+  const item = cartItems.length;
 
   return (
     <header className="border-b">
@@ -69,36 +75,63 @@ const Header = () => {
         </div>
 
         {/* icons */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 cursor-pointer">
           {isAuthComplate && (
-            <Button variant="ghost">
-              <Link
-                href="/cart"
-                className="relative rounded-md p-2 transition-colors hover:bg-muted"
-                aria-label="سبد خرید"
+            <div
+              onClick={() => setOpenProfile(!openProfile)}
+              className="ml-3 relative flex items-center"
+            >
+              <User />
+              <ChevronDown size={18} />
+
+              <div
+                className={
+                  openProfile
+                    ? "absolute top-7 left-0 border border-black"
+                    : "hidden"
+                }
               >
-                <ShoppingCart className="size-5" />
-              </Link>
-            </Button>
+                <Button
+                  onClick={() => logout()}
+                  variant={"ghost"}
+                  className={
+                    "flex  items-center gap-4 font-semibold cursor-pointer"
+                  }
+                >
+                  <LogOut />
+                  خروج از حساب کار بری
+                </Button>
+              </div>
+            </div>
           )}
 
           {!isAuthComplate && (
-            <Button variant="ghost">
-              <Link
-                href="/login"
-                className="rounded-md p-2 transition-colors hover:bg-muted"
-                aria-label="ورود"
-              >
-                <User className="size-5" />
+            <Button variant="ghost" className="border border-gray-300">
+              <Link href="/login" className="rounded-md p-2" aria-label="ورود">
+                <p className="flex items-center gap-2 text-lg font-semibold">
+                  {" "}
+                  <TbLogin />
+                  ورود | ثبت نام
+                </p>
               </Link>
             </Button>
           )}
 
           {isAuthComplate && (
-            <Button onClick={logout}>
-              {" "}
-              <LogOut />{" "}
-            </Button>
+            <Link
+              href="/cart"
+              className="relative px-3 py-1 border-r border-gray-800"
+              aria-label="سبد خرید"
+            >
+              <span
+                className={
+                  item === 0
+                    ? "hidden"
+                    : "absolute bg-red-500 h-2 w-2 rounded-full -top-1 right-2"
+                }
+              ></span>
+              <ShoppingCart className="size-5" />
+            </Link>
           )}
         </div>
       </div>

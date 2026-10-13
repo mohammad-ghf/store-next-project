@@ -1,24 +1,31 @@
 "use client";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/features/auth/context/AuthContext";
 
 const LoginPage = () => {
   const router = useRouter();
-  const { login } = useAuth();
-  const [email, setEmail] = useState("");
+  const { loginWithCredentials } = useAuth();
+
+  const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError("");
 
-    login({
-      id: "1",
-      name: "Mohammad",
-      email,
-    });
+    const success = loginWithCredentials(id, password);
+
+    if (!success) {
+      setError("شناسه یا رمز عبور اشتباه است.");
+      return;
+    }
 
     router.push("/");
   };
@@ -37,33 +44,45 @@ const LoginPage = () => {
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="email">ایمیل</label>
-
+          <label htmlFor="id">نام کاربری</label>
           <Input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="example@email.com"
+            id="id"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+            placeholder="نام کاربری"
+            autoComplete="username"
             required
           />
         </div>
 
         <div className="space-y-2">
           <label htmlFor="password">رمز عبور</label>
-
           <Input
             id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            autoComplete="current-password"
             required
           />
         </div>
 
+        {error && (
+          <p role="alert" className="text-sm text-destructive">
+            {error}
+          </p>
+        )}
+
         <Button type="submit" className="w-full">
           ورود
         </Button>
+
+        <p className="text-center text-sm text-muted-foreground">
+          حساب کاربری نداری؟{" "}
+          <Link href="/register" className="text-primary hover:underline">
+            ثبت‌نام کن
+          </Link>
+        </p>
       </form>
     </main>
   );
