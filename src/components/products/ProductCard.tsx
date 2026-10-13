@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { Product } from "../types/product.types";
+import type { Product } from "@/types/product.types";
 import AddToCartBtn from "./AddToCartBtn";
 
 type ProductCardProps = {

@@ -6,8 +6,8 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import CategoryProductSection from "@/features/products/components/CategoryProductSection";
-import { products } from "@/features/products/data/products";
+import CategoryProductSection from "@/components/products/CategoryProductSection";
+import { products } from "@/data/products";
 import digitalProduct from "../../public/digitals.jpg";
 import modileProduct from "../../public/mobiles.jpg";
 import homeAppliancesProduct from "../../public/Home Appliances.jpg";

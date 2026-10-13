@@ -1,5 +1,5 @@
-import { AuthProvider } from "@/features/auth/context/AuthContext";
-import { CartProvider } from "@/features/cart/context/CartContext";
+import { AuthProvider } from "@/context/AuthContext";
+import { CartProvider } from "@/context/CartContext";
 
 type ProviderProps = {
   children: React.ReactNode;

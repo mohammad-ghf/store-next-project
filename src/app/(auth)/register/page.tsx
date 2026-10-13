@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useAuth } from "@/features/auth/context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 
 const RegisterPage = () => {
   const router = useRouter();
@@ -21,12 +21,7 @@ const RegisterPage = () => {
     const normalizedId = id.trim();
 
     if (!normalizedId) {
-      setError("شناسه کاربری را وارد کنید.");
-      return;
-    }
-
-    if (password.length < 6) {
-      setError("رمز عبور باید حداقل ۶ کاراکتر باشد.");
+      setError("نام کاربری را وارد کنید");
       return;
     }
 

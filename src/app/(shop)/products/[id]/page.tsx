@@ -1,5 +1,5 @@
-import AddToCartBtn from "@/features/products/components/AddToCartBtn";
-import { products } from "@/features/products/data/products";
+import AddToCartBtn from "@/components/products/AddToCartBtn";
+import { products } from "@/data/products";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 

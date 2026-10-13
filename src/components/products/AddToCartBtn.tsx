@@ -1,8 +1,8 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus, Trash } from "lucide-react";
-import { Product } from "../types/product.types";
-import { useCart } from "@/features/cart/context/CartContext";
+import { Product } from "@/types/product.types";
+import { useCart } from "@/context/CartContext";
 
 type AddToCartProps = {
   product: Product;

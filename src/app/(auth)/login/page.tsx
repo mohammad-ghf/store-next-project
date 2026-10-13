@@ -1,12 +1,10 @@
 "use client";
-
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useAuth } from "@/features/auth/context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -62,6 +60,7 @@ const LoginPage = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="رمز عبور"
             autoComplete="current-password"
             required
           />

@@ -10,9 +10,9 @@ import {
   SheetHeader,
 } from "../ui/sheet";
 import { Button } from "../ui/button";
-import { useAuth } from "@/features/auth/context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
-import { useCart } from "@/features/cart/context/CartContext";
+import { useCart } from "@/context/CartContext";
 
 const Header = () => {
   const navigationItems = [

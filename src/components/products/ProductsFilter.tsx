@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import type { ProductCategory } from "../types/product.types";
+import type { ProductCategory } from "@/types/product.types";
 type ProductsFilterProps = {
   selectedCategory?: string;
 };

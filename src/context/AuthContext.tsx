@@ -7,7 +7,7 @@ import {
   type ReactNode,
 } from "react";
 import type { User } from "../types/auth.types";
-import { getUsers, registerUser, validateUser } from "../utils/auth-storage";
+import { getUsers, registerUser, validateUser } from "@/utils/auth-storage";
 
 type AuthProviderProps = {
   children: ReactNode;

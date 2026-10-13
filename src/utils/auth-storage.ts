@@ -1,4 +1,4 @@
-import type { User } from "../types/auth.types";
+import type { User } from "@/types/auth.types";
 
 const USERS_KEY = "users";
 

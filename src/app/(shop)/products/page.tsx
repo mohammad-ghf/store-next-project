@@ -1,8 +1,9 @@
 import Link from "next/link";
-import ProductCard from "@/features/products/components/ProductCard";
-import { products } from "@/features/products/data/products";
-import ProtectedRoute from "@/features/auth/components/ProtectedRoute";
-import ProductsFilter from "@/features/products/components/ProductsFilter";
+import ProductCard from "@/components/products/ProductCard";
+import { products } from "@/data/products";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import ProductsFilter from "@/components/products/ProductsFilter";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type ProductsPageProps = {
   searchParams: Promise<{
@@ -22,9 +23,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
     return !selectedCategory || product.category === selectedCategory;
   });
 
-  const totalPages = Math.ceil(
-    filteredProducts.length / PRODUCTS_PER_PAGE,
-  );
+  const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
 
   const currentPage = Math.min(
     Math.max(Number(params.page) || 1, 1),
@@ -46,9 +45,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
 
           <div>
             <div className="mb-5">
-              <h1 className="text-2xl font-bold md:text-3xl">
-                همه محصولات
-              </h1>
+              <h1 className="text-2xl font-bold md:text-3xl">همه محصولات</h1>
 
               <p className="mt-2 text-sm text-muted-foreground">
                 {filteredProducts.length.toLocaleString("fa-IR")} محصول
@@ -71,9 +68,33 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
 
         {totalPages > 1 && (
           <div className="mt-10 flex items-center justify-center gap-2">
+            {/* دکمه صفحه قبلی */}
+            <Link
+              href={(() => {
+                const queryParams = new URLSearchParams();
+                queryParams.set("page", String(currentPage - 1));
+
+                if (selectedCategory) {
+                  queryParams.set("category", selectedCategory);
+                }
+
+                return `/products?${queryParams.toString()}`;
+              })()}
+              aria-label="صفحه قبلی"
+              aria-disabled={currentPage === 1}
+              tabIndex={currentPage === 1 ? -1 : undefined}
+              className={`flex size-10 items-center justify-center rounded-lg border transition-colors ${
+                currentPage === 1
+                  ? "pointer-events-none opacity-40"
+                  : "hover:bg-muted"
+              }`}
+            >
+              <ChevronRight size={18} />
+            </Link>
+
+            {/* شماره صفحات */}
             {Array.from({ length: totalPages }, (_, index) => {
               const page = index + 1;
-
               const queryParams = new URLSearchParams();
 
               queryParams.set("page", String(page));
@@ -86,6 +107,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
                 <Link
                   key={page}
                   href={`/products?${queryParams.toString()}`}
+                  aria-current={currentPage === page ? "page" : undefined}
                   className={`flex size-10 items-center justify-center rounded-lg border text-sm font-medium transition-colors ${
                     currentPage === page
                       ? "bg-primary text-primary-foreground"
@@ -96,6 +118,30 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
                 </Link>
               );
             })}
+
+            {/* دکمه صفحه بعدی */}
+            <Link
+              href={(() => {
+                const queryParams = new URLSearchParams();
+                queryParams.set("page", String(currentPage + 1));
+
+                if (selectedCategory) {
+                  queryParams.set("category", selectedCategory);
+                }
+
+                return `/products?${queryParams.toString()}`;
+              })()}
+              aria-label="صفحه بعدی"
+              aria-disabled={currentPage === totalPages}
+              tabIndex={currentPage === totalPages ? -1 : undefined}
+              className={`flex size-10 items-center justify-center rounded-lg border transition-colors ${
+                currentPage === totalPages
+                  ? "pointer-events-none opacity-40"
+                  : "hover:bg-muted"
+              }`}
+            >
+              <ChevronLeft size={18} />
+            </Link>
           </div>
         )}
       </main>

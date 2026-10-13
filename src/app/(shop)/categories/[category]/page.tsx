@@ -1,7 +1,9 @@
-import ProtectedRoute from "@/features/auth/components/ProtectedRoute";
-import ProductCard from "@/features/products/components/ProductCard";
-import { products } from "@/features/products/data/products";
-import { ProductCategory } from "@/features/products/types/product.types";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import ProductCard from "@/components/products/ProductCard";
+import { Button } from "@/components/ui/button";
+import { products } from "@/data/products";
+import { ProductCategory } from "@/types/product.types";
+import Link from "next/link";
 
 type CategoryPageProps = {
   params: Promise<{ category: string }>;
@@ -34,6 +36,11 @@ const categoryPage = async ({ params }: CategoryPageProps) => {
           {categoryProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
+        </div>
+        <div className="flex items-center justify-center mt-5">
+          <Button>
+            <Link href="/products">مشاهده همه محصولات</Link>
+          </Button>
         </div>
       </main>
     </ProtectedRoute>

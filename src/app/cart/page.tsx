@@ -2,9 +2,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { products } from "@/features/products/data/products";
-import { useCart } from "@/features/cart/context/CartContext";
-import ProtectedRoute from "@/features/auth/components/ProtectedRoute";
+import { products } from "@/data/products";
+import { useCart } from "@/context/CartContext";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { Trash } from "lucide-react";
 
 const CartPage = () => {

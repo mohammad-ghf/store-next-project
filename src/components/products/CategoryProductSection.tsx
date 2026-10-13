@@ -1,10 +1,6 @@
-
 "use client";
-
 import Link from "next/link";
-
 import Autoplay from "embla-carousel-autoplay";
-
 import {
   Carousel,
   CarouselContent,
@@ -12,13 +8,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-
 import ProductCard from "./ProductCard";
 
 import type {
   Product,
   ProductCategory,
-} from "../types/product.types";
+} from "@/types/product.types";
 import { ChevronLeft } from "lucide-react";
 
 type CategoryProductSectionProps = {
@@ -28,11 +23,11 @@ type CategoryProductSectionProps = {
   products: Product[];
 };
 
-export default function CategoryProductSection({
+const CategoryProductSection = ({
   title,
   category,
   products,
-}: CategoryProductSectionProps) {
+}: CategoryProductSectionProps) => {
   const categoryProducts = products.filter(
     (product) => product.category === category,
   );
@@ -89,3 +84,5 @@ export default function CategoryProductSection({
     </section>
   );
 }
+
+export default CategoryProductSection;

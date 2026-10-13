@@ -1,14 +1,14 @@
-import type { Product } from "../types/product.types";
-import monitor from "../../../../public/monitor.jpg"
-import keyboard from "../../../../public/keyboard.jpg"
-import vacuumCleaner from "../../../../public/vacuum cleaner.jpg"
-import coffeeMaker from "../../../../public/coffee maker.jpg"
-import Iphone18 from "../../../../public/iphone 18.jpg"
-import Samsung from "../../../../public/Samsung.jpg"
-import lapTop from "../../../../public/lap top.jpg"
-import Ps5 from "../../../../public/ps5.jpg"
-import gamingChair from "../../../../public/gaming chair.jpg"
-import hody from "../../../../public/hody.jpg"
+import type { Product } from "@/types/product.types";
+import monitor from "../../public/monitor.jpg"
+import keyboard from "../../public/keyboard.jpg"
+import vacuumCleaner from "../../public/vacuum cleaner.jpg"
+import coffeeMaker from "../../public/coffee maker.jpg"
+import Iphone18 from "../../public/iphone 18.jpg"
+import Samsung from "../../public/Samsung.jpg"
+import lapTop from "../../public/lap top.jpg"
+import Ps5 from "../../public/ps5.jpg"
+import gamingChair from "../../public/gaming chair.jpg"
+import hody from "../../public/hody.jpg"
 
 export const products: Product[] = [
   // Digital
