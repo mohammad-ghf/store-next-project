@@ -184,8 +184,7 @@ const CartPage = () => {
                 </article>
               ))}
             </div>
-
-            {/* خلاصه سفارش */}
+            
             <aside className="h-fit min-w-0 space-y-5 rounded-xl border p-4 sm:p-5 lg:sticky lg:top-5">
               <h2 className="text-base font-bold sm:text-lg">خلاصه سفارش</h2>
 
@@ -216,7 +215,6 @@ const CartPage = () => {
           </div>
         )}
       </main>
-      ```
     </ProtectedRoute>
   );
 };
