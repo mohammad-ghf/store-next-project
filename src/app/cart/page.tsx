@@ -7,6 +7,7 @@ import { useCart } from "@/context/CartContext";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { useEffect, useState, useRef } from "react";
 import { Trash, Undo2 } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
 
 const CartPage = () => {
   const {
@@ -99,10 +100,10 @@ const CartPage = () => {
                         کالای موردنظر شما حذف شد
                       </h2>
 
-                      <div className="h-1 w-16 overflow-hidden rounded-full bg-muted">
-                        <div
-                          className="h-full bg-primary transition-all duration-1000"
-                          style={{ width: `${(countdown / 3) * 100}%` }}
+                      <div className="w-full max-w-xs space-y-2">
+                        <Progress
+                          value={(countdown / 3) * 100}
+                          className="h-1"
                         />
                       </div>
 
