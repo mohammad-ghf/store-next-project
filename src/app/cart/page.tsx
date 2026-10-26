@@ -75,63 +75,71 @@ const CartPage = () => {
 
   return (
     <ProtectedRoute>
-      <main className="container mx-auto px-4 py-8">
-        <h1 className="mb-8 text-2xl font-bold">سبد خرید</h1>
+      <main className="container mx-auto w-full px-3 py-5 sm:px-4 sm:py-8 lg:px-6">
+        <h1 className="mb-5 text-xl font-bold sm:mb-8 sm:text-2xl">سبد خرید</h1>
 
         {items.length === 0 ? (
-          <div className="rounded-xl border p-8 text-center">
-            <p className="text-muted-foreground">سبد خرید شما خالی است.</p>
+          <div className="rounded-xl border p-6 text-center sm:p-8">
+            <p className="text-sm text-muted-foreground sm:text-base">
+              سبد خرید شما خالی است.
+            </p>
 
-            <Button className="mt-5">
+            <Button className="mt-5 w-full sm:w-auto">
               <Link href="/products">مشاهده محصولات</Link>
             </Button>
           </div>
         ) : (
-          <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
-            <div className="space-y-4">
+          <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-8">
+            <div className="min-w-0 space-y-3 sm:space-y-4">
               {items.map((item) => (
                 <article
                   key={item.id}
-                  className="flex flex-col gap-4 rounded-xl border p-4 sm:flex-row sm:items-center justify-center"
+                  className="flex min-w-0 flex-col gap-4 rounded-xl border p-3 sm:p-4 md:flex-row md:items-center"
                 >
                   {pendingDeleteId === item.id ? (
-                    <div className="flex flex-col items-center gap-4 py-8 text-center">
-                      <h2 className="text-lg font-bold">
-                        کالای موردنظر شما حذف شد
+                    <div className="flex min-h-48 w-full flex-col items-center justify-center gap-4 py-6 text-center sm:py-8">
+                      <h2 className="text-base font-bold sm:text-lg">
+                        کالای موردنظر شما در حال حذف است
                       </h2>
 
-                      <div className="w-full max-w-xs space-y-2">
+                      <div className="w-full max-w-xs space-y-2 px-2">
                         <Progress
                           value={(countdown / 3) * 100}
-                          className="h-1"
+                          className="h-1.5"
                         />
                       </div>
 
-                      <Button variant="ghost" onClick={handleCancelDelete}>
-                        <Undo2 className="ml-2 size-4" />
+                      <Button
+                        variant="ghost"
+                        onClick={handleCancelDelete}
+                        className="gap-2"
+                      >
+                        <Undo2 className="size-4" />
                         انصراف
                       </Button>
                     </div>
                   ) : (
                     <>
-                      <div className="relative h-28 w-full shrink-0 rounded-lg bg-muted sm:w-28">
+                      <div className="relative mx-auto h-36 w-full shrink-0 overflow-hidden rounded-lg bg-muted sm:h-40 sm:w-40 md:mx-0 md:h-28 md:w-28 lg:h-32 lg:w-32">
                         <Image
                           src={item.image}
                           alt={item.title}
                           fill
-                          sizes="112px"
-                          className=" p-2"
+                          sizes="(max-width: 639px) 90vw, (max-width: 767px) 160px, 128px"
+                          className="object-contain p-2"
                         />
                       </div>
 
-                      <div className="flex-1 space-y-3">
-                        <h2 className="font-semibold">{item.title}</h2>
+                      <div className="flex min-w-0 flex-1 flex-col gap-3">
+                        <h2 className="wrap-break-word text-sm font-semibold leading-7 sm:text-base">
+                          {item.title}
+                        </h2>
 
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground sm:text-base">
                           {item.price.toLocaleString("fa-IR")} تومان
                         </p>
 
-                        <div className="flex items-center">
+                        <div className="flex flex-wrap items-center gap-2">
                           <Button
                             variant="outline"
                             size="icon"
@@ -141,38 +149,33 @@ const CartPage = () => {
                             +
                           </Button>
 
-                          <span className="min-w-6 text-center mx-2">
+                          <span className="min-w-7 text-center text-sm tabular-nums">
                             {item.quantity.toLocaleString("fa-IR")}
                           </span>
 
                           {item.quantity > 1 ? (
-                            <>
-                              {" "}
-                              <Button
-                                variant="outline"
-                                size="icon"
-                                aria-label="کاهش تعداد"
-                                onClick={() => handleDecreaseProduct(item.id)}
-                              >
-                                −
-                              </Button>
-                            </>
+                            <Button
+                              variant="outline"
+                              size="icon"
+                              aria-label="کاهش تعداد"
+                              onClick={() => handleDecreaseProduct(item.id)}
+                            >
+                              −
+                            </Button>
                           ) : (
-                            <>
-                              {" "}
-                              <Button
-                                className="cursor-pointer"
-                                variant={"outline"}
-                                onClick={() => handleStartDelete(item.id)}
-                              >
-                                <Trash />
-                              </Button>
-                            </>
+                            <Button
+                              variant="outline"
+                              size="icon"
+                              aria-label="حذف محصول"
+                              onClick={() => handleStartDelete(item.id)}
+                              className="text-destructive hover:text-destructive"
+                            >
+                              <Trash className="size-4" />
+                            </Button>
                           )}
                         </div>
                       </div>
-
-                      <p className="font-bold sm:text-left">
+                      <p className="text-sm font-bold md:min-w-28 md:text-left sm:text-base">
                         {(item.price * item.quantity).toLocaleString("fa-IR")}{" "}
                         تومان
                       </p>
@@ -182,23 +185,26 @@ const CartPage = () => {
               ))}
             </div>
 
-            <aside className="h-fit space-y-5 rounded-xl border p-5">
-              <h2 className="text-lg font-bold">خلاصه سفارش</h2>
+            {/* خلاصه سفارش */}
+            <aside className="h-fit min-w-0 space-y-5 rounded-xl border p-4 sm:p-5 lg:sticky lg:top-5">
+              <h2 className="text-base font-bold sm:text-lg">خلاصه سفارش</h2>
 
-              <div className="flex justify-between gap-3">
+              <div className="flex items-center justify-between gap-3 text-sm sm:text-base">
                 <span className="text-muted-foreground">تعداد کالا</span>
 
-                <span>
+                <span className="font-medium">
                   {items
                     .reduce((total, item) => total + item.quantity, 0)
                     .toLocaleString("fa-IR")}
                 </span>
               </div>
 
-              <div className="flex justify-between gap-3">
-                <span className="text-muted-foreground">مبلغ کل</span>
+              <div className="flex items-start justify-between gap-3 border-t pt-4">
+                <span className="text-sm text-muted-foreground sm:text-base">
+                  مبلغ کل
+                </span>
 
-                <span className="font-bold">
+                <span className="text-left text-sm font-bold sm:text-base">
                   {totalPrice.toLocaleString("fa-IR")} تومان
                 </span>
               </div>
@@ -210,6 +216,7 @@ const CartPage = () => {
           </div>
         )}
       </main>
+      ```
     </ProtectedRoute>
   );
 };

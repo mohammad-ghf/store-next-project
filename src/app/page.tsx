@@ -54,28 +54,38 @@ const Home = () => {
           <CarouselContent>
             {slides.map((slide) => (
               <CarouselItem key={slide.href}>
-                <div className="flex justify-center items-center gap-44 rounded-2xl border-2 px-16 py-3 md:max-h-96">
+                <div className="grid min-h-105 grid-cols-1 items-center gap-6 overflow-hidden rounded-2xl border-2 p-5 sm:min-h-90 sm:p-8 md:grid-cols-2 md:gap-8 md:p-10 lg:min-h-100 lg:gap-12 lg:p-12">
                   <div className="flex flex-col items-center justify-center text-center">
-                    <span className="mb-4 text-sm font-medium">
+                    <span className="mb-3 text-xs font-medium text-muted-foreground sm:text-sm">
                       پیشنهاد ویژه فروشگاه
                     </span>
 
-                    <h1 className="text-3xl font-bold md:text-5xl">
+                    <h1 className="text-2xl font-bold leading-relaxed sm:text-3xl md:text-4xl lg:text-5xl">
                       {slide.title}
                     </h1>
 
-                    <p className="mt-4 max-w-xl text-sm leading-7 md:text-base">
+                    <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground sm:mt-4 sm:text-base">
                       {slide.description}
                     </p>
 
                     <Link
                       href={slide.href}
-                      className="mt-8 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-white hover:opacity-90"
+                      className="mt-5 inline-flex items-center justify-center rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:mt-7 sm:px-6 sm:py-3"
                     >
                       مشاهده محصولات
                     </Link>
                   </div>
-                  <Image className="-z-10" src={slide.img} alt={slide.title} />
+
+                  <div className="relative mx-auto h-44 w-full max-w-sm sm:h-56 md:h-64 lg:h-80">
+                    <Image
+                      className="object-contain"
+                      src={slide.img}
+                      alt={slide.title}
+                      fill
+                      sizes="(max-width: 767px) 90vw, (max-width: 1023px) 45vw, 40vw"
+                      priority={false}
+                    />
+                  </div>
                 </div>
               </CarouselItem>
             ))}
