@@ -64,7 +64,6 @@ const RegisterPage = () => {
             id="id"
             value={id}
             onChange={(e) => setId(e.target.value)}
-            placeholder="یک شناسه انتخاب کنید"
             autoComplete="username"
             required
           />
