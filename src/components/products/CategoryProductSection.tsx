@@ -59,12 +59,6 @@ const CategoryProductSection = ({
           align: "start",
           direction: "rtl",
         }}
-        plugins={[
-          Autoplay({
-            delay: 4000,
-            stopOnInteraction: true,
-          }),
-        ]}
         className="px-1 select-none"
       >
         <CarouselContent className="-ml-4">

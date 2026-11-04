@@ -1,28 +1,38 @@
 import Link from "next/link";
-import ProductCard from "@/components/products/ProductCard";
 import { products } from "@/data/products";
+import ProductCard from "@/components/products/ProductCard";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
-import ProductsFilter from "@/components/products/ProductsFilter";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+
+const PRODUCTS_PER_PAGE = 8;
 
 type ProductsPageProps = {
   searchParams: Promise<{
     page?: string;
     category?: string;
+    search?: string;
   }>;
 };
-
-const PRODUCTS_PER_PAGE = 8;
 
 const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
   const params = await searchParams;
 
   const selectedCategory = params.category;
+  const searchQuery = (params.search ?? "").trim().toLocaleLowerCase("fa-IR");
 
+  //* فیلتر محصولات بر اساس دسته‌بندی و عبارت جست‌وجو
   const filteredProducts = products.filter((product) => {
-    return !selectedCategory || product.category === selectedCategory;
+    const matchesCategory =
+      !selectedCategory || product.category === selectedCategory;
+
+    const matchesSearch =
+      !searchQuery ||
+      product.title.toLocaleLowerCase("fa-IR").includes(searchQuery) ||
+      product.description.toLocaleLowerCase("fa-IR").includes(searchQuery);
+
+    return matchesCategory && matchesSearch;
   });
 
+  //* محاسبه صفحات
   const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
 
   const currentPage = Math.min(
@@ -37,110 +47,121 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
     startIndex + PRODUCTS_PER_PAGE,
   );
 
+  // ساخت شماره صفحات همراه با سه‌نقطه
+  const getPaginationPages = () => {
+    const pages: (number | "...")[] = [];
+
+    for (let page = 1; page <= totalPages; page++) {
+      if (
+        page === 1 ||
+        page === totalPages ||
+        Math.abs(page - currentPage) <= 1
+      ) {
+        pages.push(page);
+      } else if (pages[pages.length - 1] !== "...") {
+        pages.push("...");
+      }
+    }
+
+    return pages;
+  };
+
+  //* ساخت لینک صفحه‌بندی با حفظ فیلترها
+  const getPageUrl = (page: number) => {
+    const queryParams = new URLSearchParams();
+
+    queryParams.set("page", String(page));
+
+    if (selectedCategory) {
+      queryParams.set("category", selectedCategory);
+    }
+
+    if (params.search) {
+      queryParams.set("search", params.search);
+    }
+
+    return `/products?${queryParams.toString()}`;
+  };
+
   return (
     <ProtectedRoute>
       <main className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[260px_minmax(0,1fr)]">
-          <ProductsFilter selectedCategory={selectedCategory} />
+        <div className="mb-6">
+          <h1 className="mt-6 text-2xl font-bold md:text-3xl">
+            {params.search
+              ? `نتایج جست‌وجو برای «${params.search}»`
+              : "همه محصولات"}
+          </h1>
 
-          <div>
-            <div className="mb-5">
-              <h1 className="text-2xl font-bold md:text-3xl">همه محصولات</h1>
-
-              <p className="mt-2 text-sm text-muted-foreground">
-                {filteredProducts.length.toLocaleString("fa-IR")} محصول
-              </p>
-            </div>
-
-            {currentProducts.length > 0 ? (
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
-                {currentProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            ) : (
-              <p className="rounded-lg border p-6 text-center text-muted-foreground">
-                محصولی در این دسته‌بندی پیدا نشد.
-              </p>
-            )}
-          </div>
+          <p className="mt-2 text-sm text-muted-foreground">
+            {filteredProducts.length} محصول پیدا شد
+          </p>
         </div>
 
+        {currentProducts.length > 0 ? (
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {currentProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        ) : (
+          <p className="rounded-lg border p-6 text-center text-muted-foreground">
+            {params.search
+              ? "محصولی با این عبارت پیدا نشد."
+              : "محصولی در این دسته‌بندی پیدا نشد."}
+          </p>
+        )}
+
         {totalPages > 1 && (
-          <div className="mt-10 flex items-center justify-center gap-2">
-            {/* دکمه صفحه قبلی */}
+          <div className="mt-8 flex items-center justify-center gap-2">
+            {/* فلش صفحه قبل */}
             <Link
-              href={(() => {
-                const queryParams = new URLSearchParams();
-                queryParams.set("page", String(currentPage - 1));
-
-                if (selectedCategory) {
-                  queryParams.set("category", selectedCategory);
-                }
-
-                return `/products?${queryParams.toString()}`;
-              })()}
+              href={getPageUrl(currentPage - 1)}
               aria-label="صفحه قبلی"
-              aria-disabled={currentPage === 1}
-              tabIndex={currentPage === 1 ? -1 : undefined}
-              className={`flex size-10 items-center justify-center rounded-lg border transition-colors ${
+              className={`flex h-9 w-9 items-center justify-center rounded-md border transition-colors ${
                 currentPage === 1
                   ? "pointer-events-none opacity-40"
-                  : "hover:bg-muted"
+                  : "hover:bg-accent"
               }`}
             >
-              <ChevronRight size={18} />
+              <span>{"<"}</span>
             </Link>
 
             {/* شماره صفحات */}
-            {Array.from({ length: totalPages }, (_, index) => {
-              const page = index + 1;
-              const queryParams = new URLSearchParams();
-
-              queryParams.set("page", String(page));
-
-              if (selectedCategory) {
-                queryParams.set("category", selectedCategory);
-              }
-
-              return (
+            {getPaginationPages().map((page, index) =>
+              page === "..." ? (
+                <span
+                  key={`dots-${index}`}
+                  className="flex h-9 min-w-9 items-center justify-center text-muted-foreground"
+                >
+                  ...
+                </span>
+              ) : (
                 <Link
                   key={page}
-                  href={`/products?${queryParams.toString()}`}
-                  aria-current={currentPage === page ? "page" : undefined}
-                  className={`flex size-10 items-center justify-center rounded-lg border text-sm font-medium transition-colors ${
+                  href={getPageUrl(page)}
+                  className={`flex h-9 min-w-9 items-center justify-center rounded-md border px-3 text-sm transition-colors ${
                     currentPage === page
-                      ? "bg-primary text-primary-foreground"
-                      : "hover:bg-muted"
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "hover:bg-accent"
                   }`}
                 >
                   {page}
                 </Link>
-              );
-            })}
+              ),
+            )}
 
-            {/* دکمه صفحه بعدی */}
+            {/* فلش صفحه بعد */}
             <Link
-              href={(() => {
-                const queryParams = new URLSearchParams();
-                queryParams.set("page", String(currentPage + 1));
-
-                if (selectedCategory) {
-                  queryParams.set("category", selectedCategory);
-                }
-
-                return `/products?${queryParams.toString()}`;
-              })()}
+              href={getPageUrl(currentPage + 1)}
               aria-label="صفحه بعدی"
-              aria-disabled={currentPage === totalPages}
-              tabIndex={currentPage === totalPages ? -1 : undefined}
-              className={`flex size-10 items-center justify-center rounded-lg border transition-colors ${
+              className={`flex h-9 w-9 items-center justify-center rounded-md border transition-colors ${
                 currentPage === totalPages
                   ? "pointer-events-none opacity-40"
-                  : "hover:bg-muted"
+                  : "hover:bg-accent"
               }`}
             >
-              <ChevronLeft size={18} />
+              <span>{">"}</span>
             </Link>
           </div>
         )}

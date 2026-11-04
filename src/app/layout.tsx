@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
-import { Vazirmatn } from "next/font/google";
+import { vazirmatn } from "./fonts";
 import "./globals.css";
 import StoreLayout from "@/components/layout/StoreLayout";
 import Providers from "./Providers";
-
-const VazirmatnّFont = Vazirmatn({
-  subsets: ["arabic"],
-  variable: "--font-vazirmatn",
-});
+import ThemeRegistry from "./ThemeRegistry";
 
 export const metadata: Metadata = {
   title: "فروشگاه اینترنتی",
@@ -17,10 +13,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="fa" dir="rtl">
-      <body className={`${VazirmatnّFont.variable}`}>
-        <Providers>
-          <StoreLayout>{children}</StoreLayout>
-        </Providers>
+      <body className={`${vazirmatn.variable}`}>
+        <ThemeRegistry>
+          <Providers>
+            <StoreLayout>{children}</StoreLayout>
+          </Providers>
+        </ThemeRegistry>
       </body>
     </html>
   );
