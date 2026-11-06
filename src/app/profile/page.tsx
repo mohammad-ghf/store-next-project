@@ -7,9 +7,7 @@ import ProtectedRoute from "@/components/auth/ProtectedRoute";
 export default function ProfilePage() {
   return (
     <ProtectedRoute>
-      <main
-        className="min-h-screen bg-gray-50 px-4 py-6 sm:px-6 lg:px-8"
-      >
+      <main className="min-h-screen bg-gray-50 px-4 py-6 sm:px-6 lg:px-8">
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-5 lg:grid-cols-[minmax(0,1fr)_280px]">
           <div className="order-1 lg:col-start-2 lg:row-start-1 lg:row-span-2">
             <ProfileSidebar />

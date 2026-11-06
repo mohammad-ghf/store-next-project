@@ -257,7 +257,7 @@ const Header = () => {
           <nav className="flex flex-col gap-1 p-3">
             {/* لینک‌های اصلی */}
             {navigationItems.map((item) => {
-              const Icon = item.icon
+              const Icon = item.icon;
               return (
                 <Link
                   key={item.href}

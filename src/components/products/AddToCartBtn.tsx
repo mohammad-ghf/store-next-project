@@ -1,14 +1,20 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus, Trash } from "lucide-react";
-import { Product } from "@/types/product.types";
+import type { Product } from "@/types/product.types";
 import { useCart } from "@/context/CartContext";
 
 type AddToCartProps = {
   product: Product;
+  price?: number;
+  isDiscounted?: boolean;
 };
 
-const AddToCartBtn = ({ product }: AddToCartProps) => {
+const AddToCartBtn = ({
+  product,
+  price = product.price,
+  isDiscounted = false,
+}: AddToCartProps) => {
   const {
     handleIncreaseProduct,
     cartItems,
@@ -18,21 +24,22 @@ const AddToCartBtn = ({ product }: AddToCartProps) => {
 
   const cartItem = cartItems.find((item) => item.id === product.id);
 
+  const handleAdd = () => {
+    handleIncreaseProduct(product.id, price, isDiscounted);
+  };
+
   return (
     <div className="inline-block">
       {!cartItem ? (
-        <Button
-          onClick={() => handleIncreaseProduct(product.id)}
-          className={"cursor-pointer"}
-        >
+        <Button onClick={handleAdd} className="cursor-pointer">
           افزودن به سبد
         </Button>
       ) : (
-        <div className="flex items-center gap-1 px-0.5 border-2 shadow">
+        <div className="flex items-center gap-1 border-2 px-0.5 shadow">
           <Button
-            onClick={() => handleIncreaseProduct(product.id)}
-            className={"cursor-pointer"}
-            variant={"ghost"}
+            onClick={handleAdd}
+            className="cursor-pointer"
+            variant="ghost"
           >
             <Plus color="red" />
           </Button>
@@ -42,18 +49,19 @@ const AddToCartBtn = ({ product }: AddToCartProps) => {
           {cartItem.quantity !== 1 ? (
             <Button
               onClick={() => handleDecreaseProduct(product.id)}
-              className={"cursor-pointer"}
-              variant={"ghost"}
+              className="cursor-pointer"
+              variant="ghost"
             >
               <Minus color="red" />
             </Button>
           ) : (
-            <div
+            <button
               onClick={() => handleDeleteProduct(product.id)}
-              className="pr-2 cursor-pointer"
+              className="cursor-pointer pr-2"
+              aria-label="حذف محصول از سبد خرید"
             >
               <Trash color="red" size={19} />
-            </div>
+            </button>
           )}
         </div>
       )}

@@ -11,11 +11,17 @@ import { useAuth } from "./AuthContext";
 type CartItem = {
   id: string;
   quantity: number;
+  price: number;
+  isDiscounted: boolean;
 };
 
 type CartContextType = {
   cartItems: CartItem[];
-  handleIncreaseProduct: (id: string) => void;
+  handleIncreaseProduct: (
+    id: string,
+    price: number,
+    isDiscounted?: boolean,
+  ) => void;
   handleDecreaseProduct: (id: string) => void;
   handleDeleteProduct: (id: string) => void;
 };
@@ -88,30 +94,37 @@ export function CartProvider({ children }: CartProviderProps) {
     if (!isAuthInitialized || !isCartInitialized || !userId) return;
 
     try {
-      localStorage.setItem(
-        `cartItems_${userId}`,
-        JSON.stringify(cartItems),
-      );
+      localStorage.setItem(`cartItems_${userId}`, JSON.stringify(cartItems));
     } catch {
       console.error("ذخیره سبد خرید انجام نشد.");
     }
   }, [cartItems, userId, isAuthInitialized, isCartInitialized]);
 
-  const handleIncreaseProduct = (id: string) => {
+  const handleIncreaseProduct = (
+    id: string,
+    price: number,
+    isDiscounted = false,
+  ) => {
     if (!userId || !isCartInitialized) return;
 
     setCartItems((prev) => {
       const exist = prev.find((item) => item.id === id);
 
-      if (!exist) {
-        return [...prev, { id, quantity: 1 }];
+      if (exist) {
+        return prev.map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
+        );
       }
 
-      return prev.map((item) =>
-        item.id === id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item,
-      );
+      return [
+        ...prev,
+        {
+          id,
+          quantity: 1,
+          price,
+          isDiscounted,
+        },
+      ];
     });
   };
 
@@ -128,9 +141,7 @@ export function CartProvider({ children }: CartProviderProps) {
       }
 
       return prev.map((item) =>
-        item.id === id
-          ? { ...item, quantity: item.quantity - 1 }
-          : item,
+        item.id === id ? { ...item, quantity: item.quantity - 1 } : item,
       );
     });
   };

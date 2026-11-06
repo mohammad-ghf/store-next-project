@@ -17,16 +17,23 @@ const CartPage = () => {
     handleDeleteProduct,
   } = useCart();
 
-  const items = products
-    .filter((product) =>
-      cartItems.some((cartItem) => cartItem.id === product.id),
-    )
-    .map((product) => ({
-      ...product,
-      quantity: cartItems.find((cartItem) => cartItem.id === product.id)!
-        .quantity,
-    }));
+  // ترکیب اطلاعات محصول با اطلاعات سبد خرید
+  const items = cartItems
+    .map((cartItem) => {
+      const product = products.find((product) => product.id === cartItem.id);
 
+      if (!product) return null;
+
+      return {
+        ...product,
+        quantity: cartItem.quantity,
+        price: cartItem.price,
+        isDiscounted: cartItem.isDiscounted,
+      };
+    })
+    .filter((item) => item !== null);
+
+  // محاسبه مبلغ کل
   const totalPrice = items.reduce(
     (total, item) => total + item.price * item.quantity,
     0,
@@ -135,16 +142,30 @@ const CartPage = () => {
                           {item.title}
                         </h2>
 
-                        <p className="text-sm text-muted-foreground sm:text-base">
-                          {item.price.toLocaleString("fa-IR")} تومان
-                        </p>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <p className="text-sm text-muted-foreground sm:text-base">
+                            {item.price.toLocaleString("fa-IR")} تومان
+                          </p>
+
+                          {item.isDiscounted && (
+                            <span className="rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-red-600">
+                              تخفیف‌دار
+                            </span>
+                          )}
+                        </div>
 
                         <div className="flex flex-wrap items-center gap-2">
                           <Button
                             variant="outline"
                             size="icon"
                             aria-label="افزایش تعداد"
-                            onClick={() => handleIncreaseProduct(item.id)}
+                            onClick={() =>
+                              handleIncreaseProduct(
+                                item.id,
+                                item.price,
+                                item.isDiscounted,
+                              )
+                            }
                           >
                             +
                           </Button>
@@ -175,6 +196,7 @@ const CartPage = () => {
                           )}
                         </div>
                       </div>
+
                       <p className="text-sm font-bold md:min-w-28 md:text-left sm:text-base">
                         {(item.price * item.quantity).toLocaleString("fa-IR")}{" "}
                         تومان
@@ -184,7 +206,7 @@ const CartPage = () => {
                 </article>
               ))}
             </div>
-            
+
             <aside className="h-fit min-w-0 space-y-5 rounded-xl border p-4 sm:p-5 lg:sticky lg:top-5">
               <h2 className="text-base font-bold sm:text-lg">خلاصه سفارش</h2>
 

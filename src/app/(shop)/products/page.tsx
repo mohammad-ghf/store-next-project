@@ -3,7 +3,7 @@ import { products } from "@/data/products";
 import ProductCard from "@/components/products/ProductCard";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
-const PRODUCTS_PER_PAGE = 8;
+const PRODUCTS_PER_PAGE = 15;
 
 type ProductsPageProps = {
   searchParams: Promise<{
@@ -99,7 +99,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
         </div>
 
         {currentProducts.length > 0 ? (
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
             {currentProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}

@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
@@ -8,12 +7,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import type { User } from "@/types/auth.types";
 
@@ -50,10 +44,7 @@ export default function ProfileInfo() {
     });
   }, [user]);
 
-  function handleChange(
-    field: keyof typeof formData,
-    value: string,
-  ) {
+  function handleChange(field: keyof typeof formData, value: string) {
     setFormData((current) => ({
       ...current,
       [field]: value,
@@ -109,7 +100,7 @@ export default function ProfileInfo() {
       key: "birthDate",
       label: "تاریخ تولد",
       placeholder: "مثلاً ۱۳۸۵/۰۵/۲۰",
-      type: "date"
+      type: "date",
     },
     {
       key: "email",
@@ -129,9 +120,7 @@ export default function ProfileInfo() {
   return (
     <Card dir="rtl" className={cn("h-full rounded-2xl")}>
       <CardHeader className="flex flex-row items-center justify-between gap-3">
-        <CardTitle className="text-lg font-semibold">
-          اطلاعات کاربر
-        </CardTitle>
+        <CardTitle className="text-lg font-semibold">اطلاعات کاربر</CardTitle>
 
         <Button
           type="button"
@@ -201,10 +190,7 @@ export default function ProfileInfo() {
           </div>
 
           {message && (
-            <p
-              role="status"
-              className="mt-4 text-sm text-green-600"
-            >
+            <p role="status" className="mt-4 text-sm text-green-600">
               {message}
             </p>
           )}

@@ -10,10 +10,7 @@ import {
 } from "@/components/ui/carousel";
 import ProductCard from "./ProductCard";
 
-import type {
-  Product,
-  ProductCategory,
-} from "@/types/product.types";
+import type { Product, ProductCategory } from "@/types/product.types";
 import { ChevronLeft } from "lucide-react";
 
 type CategoryProductSectionProps = {
@@ -40,9 +37,7 @@ const CategoryProductSection = ({
     <section className="rounded-2xl border bg-background p-4 shadow-sm md:p-6">
       <div className="mb-6 flex items-center justify-between gap-4">
         <div className="space-y-2">
-          <h2 className="text-xl font-bold md:text-2xl">
-            {title}
-          </h2>
+          <h2 className="text-xl font-bold md:text-2xl">{title}</h2>
         </div>
 
         <Link
@@ -58,6 +53,9 @@ const CategoryProductSection = ({
         opts={{
           align: "start",
           direction: "rtl",
+          duration: 30,
+          dragFree: true,
+          containScroll: "trimSnaps",
         }}
         className="px-1 select-none"
       >
@@ -77,6 +75,6 @@ const CategoryProductSection = ({
       </Carousel>
     </section>
   );
-}
+};
 
 export default CategoryProductSection;

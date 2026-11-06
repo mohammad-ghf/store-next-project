@@ -1,52 +1,197 @@
 import Link from "next/link";
+import { Headset, AtSign, Send, CircleHelp } from "lucide-react";
+import { FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
-  const footerLinks = [
-    { href: "/", label: "خانه" },
-    { href: "/products", label: "محصولات" },
-    { href: "/cart", label: "سبد خرید" },
+  const customerLinks = [
+    { href: "#", label: "پرسش‌های متداول" },
+    { href: "#", label: "راهنمای خرید" },
+    { href: "#", label: "شرایط بازگشت کالا" },
+    { href: "#", label: "ثبت شکایات" },
+    { href: "#", label: "حریم خصوصی" },
+  ];
+
+  const categoryLinks = [
+    { href: "/products?category=mobile", label: "گوشی موبایل" },
+    { href: "/products?category=laptop", label: "لپ‌تاپ" },
+    { href: "/products?category=gaming", label: "گیمینگ" },
+    { href: "/products?category=home-appliances", label: "لوازم خانگی" },
+    { href: "/products?category=digital", label: "کالای دیجیتال" },
+    { href: "/products?category=clothing", label: "پوشاک" },
+  ];
+
+  const aboutLinks = [
+    { href: "#", label: "تماس با ما" },
+    { href: "#", label: "درباره ما" },
+    { href: "#", label: "مجله فروشگاه" },
+    { href: "#", label: "شرایط و قوانین" },
   ];
 
   return (
-    <footer className="border-t">
+    <footer dir="rtl" className="mt-16 border-t bg-background">
+      {/* Main Footer */}
       <div className="container mx-auto px-4 py-10">
-        <div className="grid gap-8 md:grid-cols-3">
-          {/* title */}
-          <div>
-            <Link href="/" className="text-xl font-bold">
-              فروشگاه
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-3 lg:grid-cols-5">
+          {/* Brand */}
+          <div className="col-span-2 space-y-4 md:col-span-1">
+            <Link href="/" className="inline-block text-2xl font-extrabold">
+              فروشگاه <span className="text-red-600">دیجیتال</span>
             </Link>
 
-            <p className="mt-3 text-sm">
-              خریدی به صرفه با بهترین قیمت
+            <p className="text-sm leading-7 text-muted-foreground">
+              تجربه خریدی آسان، مطمئن و لذت‌بخش با بهترین قیمت‌ها. ما تلاش
+              می‌کنیم محصولات باکیفیت را با مناسب‌ترین قیمت در اختیار شما قرار
+              دهیم.
             </p>
+
+            <div className="flex items-center gap-3 pt-2">
+              <Link
+                href="https://instagram.com"
+                target="_blank"
+                aria-label="Instagram"
+                className="text-muted-foreground transition hover:text-red-600"
+              >
+                <FaInstagram size={23} />
+              </Link>
+
+              <Link
+                href="https://t.me"
+                target="_blank"
+                aria-label="Telegram"
+                className="text-muted-foreground transition hover:text-red-600"
+              >
+                <Send size={22} />
+              </Link>
+
+              <Link
+                href="https://linkedin.com"
+                target="_blank"
+                aria-label="LinkedIn"
+                className="text-muted-foreground transition hover:text-red-600"
+              >
+                <FaLinkedin size={23} />
+              </Link>
+            </div>
           </div>
 
-          {/* Links */}
+          {/* Customer Services */}
           <div>
-            <h2 className="mb-3 font-semibold">دسترسی سریع</h2>
+            <h3 className="mb-5 font-bold">خدمات مشتریان</h3>
 
-            <nav className="flex flex-col items-start gap-2">
-              {footerLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-sm"
-                >
-                  {link.label}
-                </Link>
+            <ul className="space-y-4">
+              {customerLinks.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-muted-foreground transition hover:text-red-600"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
               ))}
-            </nav>
+            </ul>
+          </div>
+
+          {/* Categories */}
+          <div>
+            <h3 className="mb-5 font-bold">دسته‌بندی محصولات</h3>
+
+            <ul className="space-y-4">
+              {categoryLinks.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-muted-foreground transition hover:text-red-600"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* About */}
+          <div>
+            <h3 className="mb-5 font-bold">درباره فروشگاه</h3>
+
+            <ul className="space-y-4">
+              {aboutLinks.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-muted-foreground transition hover:text-red-600"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h2 className="mb-3 font-semibold">ارتباط با ما</h2>
+            <h3 className="mb-5 font-bold">ارتباط با ما</h3>
 
-            <p className="text-sm">
-                برای اطلاع از محصولات با ما در ارتباط باشید.
+            <div className="space-y-5">
+              <div>
+                <p className="mb-2 text-xs text-muted-foreground">
+                  ساعت پاسخگویی
+                </p>
+                <p className="text-sm leading-6">
+                  شنبه تا پنجشنبه، ساعت ۹ الی ۱۸
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <Headset className="shrink-0 text-red-600" size={25} />
+                <div>
+                  <p className="text-xs text-muted-foreground">تلفن پشتیبانی</p>
+                  <a href="tel:02112345678" className="text-sm font-semibold">
+                    ۰۲۱-۱۲۳۴۵۶۷۸
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <AtSign className="shrink-0 text-red-600" size={25} />
+                <div>
+                  <p className="text-xs text-muted-foreground">ایمیل</p>
+                  <a
+                    href="mailto:info@example.com"
+                    className="text-sm font-semibold"
+                  >
+                    info@example.com
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Section */}
+        <div className="mt-5 grid gap-8 pt-8 md:grid-cols-2 md:items-center">
+          {/* Store Description */}
+          <div className="space-y-3">
+            <h3 className="text-lg font-bold">
+              فروشگاه اینترنتی <span className="text-red-600">دیجیتال</span>
+            </h3>
+
+            <p className="text-justify text-xs leading-7 text-muted-foreground">
+              فروشگاه اینترنتی ما با هدف فراهم کردن تجربه‌ای متفاوت از خرید
+              آنلاین فعالیت خود را آغاز کرده است. تلاش می‌کنیم با ارائه محصولات
+              متنوع، قیمت مناسب و پشتیبانی پاسخگو، خریدی آسان و مطمئن را برای
+              مشتریان فراهم کنیم. رضایت شما مهم‌ترین هدف ماست.
             </p>
           </div>
+        </div>
+      </div>
+
+      {/* Copyright */}
+      <div className="border-t">
+        <div className="container mx-auto px-4 py-5">
+          <p className="text-center text-xs text-muted-foreground">
+            © تمامی حقوق این وب‌سایت متعلق به فروشگاه دیجیتال است.
+          </p>
         </div>
       </div>
     </footer>

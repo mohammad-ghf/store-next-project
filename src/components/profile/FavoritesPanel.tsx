@@ -23,9 +23,7 @@ export default function FavoritesPanel() {
       <div className="flex min-h-55 flex-col items-center justify-center gap-4 text-gray-300">
         <Heart size={72} strokeWidth={1.5} />
 
-        <p className="text-sm">
-          لیست علاقه‌مندی‌های شما خالی است
-        </p>
+        <p className="text-sm">لیست علاقه‌مندی‌های شما خالی است</p>
 
         <Button variant="outline" className="text-foreground">
           <Link href="/products">مشاهده محصولات</Link>

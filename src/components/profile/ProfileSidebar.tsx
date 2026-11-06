@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -13,10 +13,20 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
 
 const menuItems = [
-  { label: "اطلاعات کاربری", icon: UserRound, href: "#profile-info", active: true },
+  {
+    label: "اطلاعات کاربری",
+    icon: UserRound,
+    href: "#profile-info",
+    active: true,
+  },
   { label: "لیست نشانی‌ها", icon: MapPin, href: "#addresses", active: false },
   { label: "سفارش‌های من", icon: ShoppingCart, href: "#orders", active: false },
-  { label: "کالاهای موردعلاقه", icon: Heart, href: "#favorites", active: false },
+  {
+    label: "کالاهای موردعلاقه",
+    icon: Heart,
+    href: "#favorites",
+    active: false,
+  },
   { label: "دیدگاه‌ها", icon: MessageSquare, href: "#comments", active: false },
 ];
 
@@ -56,9 +66,7 @@ export default function ProfileSidebar() {
             href={href}
             className={cn(
               "flex items-center gap-3 rounded-xl px-3 py-3 transition-colors",
-              active
-                ? "text-red-500"
-                : "text-foreground hover:bg-gray-50",
+              active ? "text-red-500" : "text-foreground hover:bg-gray-50",
             )}
           >
             <Icon
