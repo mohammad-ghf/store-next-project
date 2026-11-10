@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Headset, AtSign, Send, CircleHelp } from "lucide-react";
+import { Headset, AtSign, Send } from "lucide-react";
 import { FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
