@@ -1,37 +1,40 @@
 "use client";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 
+import {
+  registerSchema,
+  type RegisterFormData,
+} from "@/schemas/register.schema";
+
 const RegisterPage = () => {
   const router = useRouter();
-  const { register, login } = useAuth();
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError("");
+  const { register: registerUser, login } = useAuth();
 
-    const normalizedId = id.trim();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterFormData>({
+    resolver: yupResolver(registerSchema),
+    defaultValues: {
+      id: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
 
-    if (!normalizedId) {
-      toast.error("نام کاربری را وارد کنید");
-      return;
-    }
+  const onSubmit = (data: RegisterFormData) => {
+    const normalizedId = data.id.trim();
 
-    if (password !== confirmPassword) {
-      toast.error("رمز عبور و تکرار آن یکسان نیستند.");
-      return;
-    }
-
-    const success = register(normalizedId, password);
+    const success = registerUser(normalizedId, data.password);
 
     if (!success) {
       toast.error("این شناسه قبلاً ثبت شده است.");
@@ -40,82 +43,84 @@ const RegisterPage = () => {
 
     login({
       id: normalizedId,
-      password,
+      password: data.password,
     });
 
     toast.success("حساب کاربری با موفقیت ایجاد شد.");
-
     router.push("/");
   };
 
   return (
-    <main className="container mx-auto flex min-h-[70vh] items-center justify-center px-4">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-md space-y-5 rounded-xl border bg-card p-6"
-      >
-        <div className="space-y-2 text-center">
-          <h1 className="text-2xl font-bold">ساخت حساب کاربری</h1>
-          <p className="text-sm text-muted-foreground">
-            برای ساخت حساب، اطلاعات زیر را وارد کنید.
-          </p>
-        </div>
+    <div className="mx-auto max-w-md p-6">
+      <h1 className="mb-6 text-2xl font-bold">ثبت‌نام</h1>
 
-        <div className="space-y-2">
-          <label htmlFor="id">شناسه کاربری</label>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <div>
+          <label htmlFor="id">نام کاربری</label>
+
           <Input
             id="id"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
+            type="text"
             autoComplete="username"
-            required
+            placeholder="نام کاربری خود را وارد کنید"
+            {...register("id")}
           />
+
+          {errors.id && (
+            <p role="alert" className="mt-1 text-sm text-destructive">
+              {errors.id.message}
+            </p>
+          )}
         </div>
 
-        <div className="space-y-2">
+        <div>
           <label htmlFor="password">رمز عبور</label>
+
           <Input
             id="password"
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             autoComplete="new-password"
-            minLength={6}
-            required
+            placeholder="رمز عبور خود را وارد کنید"
+            {...register("password")}
           />
+
+          {errors.password && (
+            <p role="alert" className="mt-1 text-sm text-destructive">
+              {errors.password.message}
+            </p>
+          )}
         </div>
 
-        <div className="space-y-2">
+        <div>
           <label htmlFor="confirmPassword">تکرار رمز عبور</label>
+
           <Input
             id="confirmPassword"
             type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
             autoComplete="new-password"
-            minLength={6}
-            required
+            placeholder="رمز عبور را دوباره وارد کنید"
+            {...register("confirmPassword")}
           />
-        </div>
 
-        {error && (
-          <p role="alert" className="text-sm text-destructive">
-            {error}
-          </p>
-        )}
+          {errors.confirmPassword && (
+            <p role="alert" className="mt-1 text-sm text-destructive">
+              {errors.confirmPassword.message}
+            </p>
+          )}
+        </div>
 
         <Button type="submit" className="w-full">
           ثبت‌نام
         </Button>
-
-        <p className="text-center text-sm text-muted-foreground">
-          قبلاً حساب ساخته‌ای؟{" "}
-          <Link href="/login" className="text-primary hover:underline">
-            وارد شو
-          </Link>
-        </p>
       </form>
-    </main>
+
+      <p className="mt-4 text-sm">
+        قبلاً ثبت‌نام کرده‌اید؟{" "}
+        <Link href="/login" className="text-primary">
+          ورود
+        </Link>
+      </p>
+    </div>
   );
 };
 
