@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Headset, AtSign, Send } from "lucide-react";
 import { FaInstagram, FaLinkedin } from "react-icons/fa";
+import Image from "next/image";
+import Logo from "../../../public/logo.png"
 
 const Footer = () => {
   const customerLinks = [
@@ -28,14 +30,14 @@ const Footer = () => {
   ];
 
   return (
-    <footer dir="rtl" className="mt-16 border-t bg-background">
+    <footer dir="rtl" className="border-t bg-background">
       {/* Main Footer */}
       <div className="container mx-auto px-4 py-10">
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-3 lg:grid-cols-5">
           {/* Brand */}
           <div className="col-span-2 space-y-4 md:col-span-1">
             <Link href="/" className="inline-block text-2xl font-extrabold">
-              فروشگاه <span className="text-red-600">دیجیتال</span>
+              <Image src={Logo} alt="logo" />
             </Link>
 
             <p className="text-sm leading-7 text-muted-foreground">

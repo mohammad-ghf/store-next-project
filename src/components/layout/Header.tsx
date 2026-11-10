@@ -15,6 +15,8 @@ import { TbLogin } from "react-icons/tb";
 import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
+import Logo from "../../../public/logo.png"
 
 const navigationItems = [
   { href: "/", label: "خانه", icon: House },
@@ -90,10 +92,9 @@ const Header = () => {
           <Link
             href="/"
             aria-label="صفحه اصلی فروشگاه"
-            className="flex shrink-0 items-center gap-2 text-red-600 no-underline"
           >
             <span className="whitespace-nowrap text-lg font-black md:text-3xl">
-              فروشگاه
+              <Image src={Logo} alt="logo" className="w-40 md:w-46 lg:w-56" />
             </span>
           </Link>
 
