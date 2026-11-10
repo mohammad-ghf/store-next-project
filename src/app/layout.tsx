@@ -3,6 +3,7 @@ import { vazirmatn } from "./fonts";
 import "./globals.css";
 import StoreLayout from "@/components/layout/StoreLayout";
 import Providers from "./Providers";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "فروشگاه اینترنتی",
@@ -14,7 +15,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="fa" dir="rtl">
       <body className={`${vazirmatn.variable}`}>
           <Providers>
-            <StoreLayout>{children}</StoreLayout>
+            <StoreLayout>
+              {children}
+              <Toaster position="top-center" richColors />
+            </StoreLayout>
           </Providers>
       </body>
     </html>

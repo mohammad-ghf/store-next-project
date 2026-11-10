@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
+import { toast } from "sonner";
 
 const menuItems = [
   {
@@ -36,6 +37,7 @@ export default function ProfileSidebar() {
 
   function handleLogout() {
     logout();
+    toast.success("با موفقیت از حساب کاربری خارج شدید")
     router.replace("/login");
   }
 

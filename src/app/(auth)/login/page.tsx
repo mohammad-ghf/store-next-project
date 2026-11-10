@@ -5,11 +5,11 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/AuthContext";
+import { toast } from "sonner";
 
 const LoginPage = () => {
   const router = useRouter();
   const { loginWithCredentials } = useAuth();
-
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -21,9 +21,11 @@ const LoginPage = () => {
     const success = loginWithCredentials(id, password);
 
     if (!success) {
-      setError("شناسه یا رمز عبور اشتباه است.");
+      toast.error("شناسه یا رمز عبور اشتباه است");
       return;
     }
+
+    toast.success("ورود با موفقیت انجام شد");
 
     router.push("/");
   };

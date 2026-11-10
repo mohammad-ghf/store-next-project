@@ -8,6 +8,7 @@ import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { useEffect, useState, useRef } from "react";
 import { Trash, Undo2 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
+import { toast } from "sonner";
 
 const CartPage = () => {
   const {
@@ -60,6 +61,7 @@ const CartPage = () => {
         timerRef.current = null;
 
         handleDeleteProduct(id);
+        toast.success("محصول از سبد خرید حذف شد")
         setPendingDeleteId(null);
         setCountdown(3);
       }

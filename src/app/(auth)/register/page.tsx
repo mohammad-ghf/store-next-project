@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/AuthContext";
+import { toast } from "sonner";
 
 const RegisterPage = () => {
   const router = useRouter();
@@ -21,19 +22,19 @@ const RegisterPage = () => {
     const normalizedId = id.trim();
 
     if (!normalizedId) {
-      setError("نام کاربری را وارد کنید");
+      toast.error("نام کاربری را وارد کنید");
       return;
     }
 
     if (password !== confirmPassword) {
-      setError("رمز عبور و تکرار آن یکسان نیستند.");
+      toast.error("رمز عبور و تکرار آن یکسان نیستند.");
       return;
     }
 
     const success = register(normalizedId, password);
 
     if (!success) {
-      setError("این شناسه قبلاً ثبت شده است.");
+      toast.error("این شناسه قبلاً ثبت شده است.");
       return;
     }
 
@@ -41,6 +42,8 @@ const RegisterPage = () => {
       id: normalizedId,
       password,
     });
+
+    toast.success("حساب کاربری با موفقیت ایجاد شد.");
 
     router.push("/");
   };
