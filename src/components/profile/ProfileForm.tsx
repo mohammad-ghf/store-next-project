@@ -13,7 +13,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export default function ProfileForm() {
+const ProfileForm = () => {
   const { profile, updateField, saveProfile, isLoaded } = useProfile();
   const [message, setMessage] = useState("");
 
@@ -122,4 +122,5 @@ export default function ProfileForm() {
       </CardContent>
     </Card>
   );
-}
+};
+export default ProfileForm;

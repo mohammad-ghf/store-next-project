@@ -25,19 +25,19 @@ const menuItems = [
   {
     label: "کالاهای موردعلاقه",
     icon: Heart,
-    href: "#favorites",
+    href: "/wishlist",
     active: false,
   },
   { label: "دیدگاه‌ها", icon: MessageSquare, href: "#comments", active: false },
 ];
 
-export default function ProfileSidebar() {
+const ProfileSidebar = () => {
   const { user, logout } = useAuth();
   const router = useRouter();
 
   function handleLogout() {
     logout();
-    toast.success("با موفقیت از حساب کاربری خارج شدید")
+    toast.success("با موفقیت از حساب کاربری خارج شدید");
     router.replace("/login");
   }
 
@@ -95,4 +95,6 @@ export default function ProfileSidebar() {
       </button>
     </aside>
   );
-}
+};
+
+export default ProfileSidebar;

@@ -1,19 +1,29 @@
 "use client";
-
 import { useEffect, useState, type FormEvent } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
 import type { User } from "@/types/auth.types";
+import {
+  AtSign,
+  UserRound,
+  UsersRound,
+  Phone,
+  CalendarDays,
+  Mail,
+  Fingerprint,
+  Landmark,
+  Pencil,
+  X,
+  Save,
+  Undo2,
+} from "lucide-react";
 
-export default function ProfileInfo() {
+const ProfileInfo = () => {
   const { user, login } = useAuth();
-
   const [isEditing, setIsEditing] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -82,38 +92,46 @@ export default function ProfileInfo() {
     {
       key: "username",
       label: "نام کاربری",
+      icon: AtSign,
     },
     {
       key: "firstName",
       label: "نام",
+      icon: UserRound,
     },
     {
       key: "lastName",
       label: "نام خانوادگی",
+      icon: UsersRound,
     },
     {
       key: "phone",
       label: "تلفن همراه",
       type: "tel",
+      icon: Phone,
     },
     {
       key: "birthDate",
       label: "تاریخ تولد",
       placeholder: "مثلاً ۱۳۸۵/۰۵/۲۰",
       type: "date",
+      icon: CalendarDays,
     },
     {
       key: "email",
       label: "ایمیل",
       type: "email",
+      icon: Mail,
     },
     {
       key: "nationalCode",
       label: "کد ملی",
+      icon: Fingerprint,
     },
     {
       key: "shebaNumber",
       label: "شماره شبا",
+      icon: Landmark,
     },
   ] as const;
 
@@ -125,7 +143,7 @@ export default function ProfileInfo() {
         <Button
           type="button"
           variant="outline"
-          className="border-red-500 text-red-500 hover:bg-red-50 hover:text-red-600"
+          className="gap-2 border-red-500 text-red-500 hover:bg-red-50 hover:text-red-600"
           onClick={() => {
             setMessage("");
 
@@ -145,48 +163,64 @@ export default function ProfileInfo() {
             setIsEditing((current) => !current);
           }}
         >
-          {isEditing ? "لغو ویرایش" : "ویرایش"}
+          {isEditing ? (
+            <>
+              <X className="size-4" />
+              لغو ویرایش
+            </>
+          ) : (
+            <>
+              <Pencil className="size-4" />
+              ویرایش
+            </>
+          )}
         </Button>
       </CardHeader>
 
       <CardContent>
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 sm:grid-cols-2">
-            {fields.map((field) => (
-              <div
-                key={field.key}
-                className="min-w-0 border-b border-border p-4"
-              >
-                <Label
-                  htmlFor={field.key}
-                  className="mb-3 block text-sm text-muted-foreground"
-                >
-                  {field.label}
-                </Label>
+            {fields.map((field) => {
+              const Icon = field.icon;
 
-                {isEditing ? (
-                  <Input
-                    id={field.key}
-                    type={"type" in field ? field.type : "text"}
-                    placeholder={
-                      "placeholder" in field
-                        ? field.placeholder
-                        : `وارد کردن ${field.label}`
-                    }
-                    value={formData[field.key]}
-                    onChange={(event) =>
-                      handleChange(field.key, event.target.value)
-                    }
-                    className="text-right"
-                    autoComplete="off"
-                  />
-                ) : (
-                  <p className="min-h-5 wrap-break-word text-sm">
-                    {formData[field.key] || "ثبت نشده"}
-                  </p>
-                )}
-              </div>
-            ))}
+              return (
+                <div
+                  key={field.key}
+                  className="min-w-0 border-b border-border p-4"
+                >
+                  <Label
+                    htmlFor={field.key}
+                    className="mb-3 flex items-center gap-2 text-sm text-muted-foreground"
+                  >
+                    <Icon className="size-4 shrink-0 text-red-500" />
+
+                    {field.label}
+                  </Label>
+
+                  {isEditing ? (
+                    <Input
+                      id={field.key}
+                      type={"type" in field ? field.type : "text"}
+                      placeholder={
+                        "placeholder" in field
+                          ? field.placeholder
+                          : `وارد کردن ${field.label}`
+                      }
+                      value={formData[field.key]}
+                      onChange={(event) =>
+                        handleChange(field.key, event.target.value)
+                      }
+                      className="text-right"
+                      autoComplete="off"
+                    />
+                  ) : (
+                    <p className="min-h-5 wrap-break-word text-sm">
+                      {formData[field.key] || "ثبت نشده"}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
           </div>
 
           {message && (
@@ -196,12 +230,16 @@ export default function ProfileInfo() {
           )}
 
           {isEditing && (
-            <div className="mt-5 flex gap-3">
-              <Button type="submit">ذخیره تغییرات</Button>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Button type="submit" className="gap-2">
+                <Save className="size-4" />
+                ذخیره تغییرات
+              </Button>
 
               <Button
                 type="button"
                 variant="outline"
+                className="gap-2"
                 onClick={() => {
                   setFormData({
                     username: user.username ?? user.id,
@@ -213,10 +251,12 @@ export default function ProfileInfo() {
                     nationalCode: user.nationalCode ?? "",
                     shebaNumber: user.shebaNumber ?? "",
                   });
+
                   setIsEditing(false);
                   setMessage("");
                 }}
               >
+                <Undo2 className="size-4" />
                 انصراف
               </Button>
             </div>
@@ -225,4 +265,5 @@ export default function ProfileInfo() {
       </CardContent>
     </Card>
   );
-}
+};
+export default ProfileInfo;

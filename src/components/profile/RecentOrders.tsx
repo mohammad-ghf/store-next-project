@@ -1,4 +1,4 @@
-export default function RecentOrders() {
+const RecentOrders = () => {
   return (
     <section
       id="orders"
@@ -14,4 +14,5 @@ export default function RecentOrders() {
       </div>
     </section>
   );
-}
+};
+export default RecentOrders;

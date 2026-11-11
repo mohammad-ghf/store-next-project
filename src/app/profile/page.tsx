@@ -4,7 +4,7 @@ import FavoritesPanel from "@/components/profile/FavoritesPanel";
 import RecentOrders from "@/components/profile/RecentOrders";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
-export default function ProfilePage() {
+const ProfilePage = () => {
   return (
     <ProtectedRoute>
       <main className="min-h-screen bg-gray-50 px-4 py-6 sm:px-6 lg:px-8">
@@ -27,4 +27,5 @@ export default function ProfilePage() {
       </main>
     </ProtectedRoute>
   );
-}
+};
+export default ProfilePage;
