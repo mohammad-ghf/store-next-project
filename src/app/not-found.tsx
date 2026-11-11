@@ -4,8 +4,8 @@ import Logo from "../../public/logo.png";
 
 export default function NotFound() {
   return (
-    <section className=" mx-auto flex items-center justify-center bg-gray-100 min-h-120">
-      <div className="flex items-center justify-between w-[60%] bg-white p-12">
+    <section className=" mx-auto flex items-center justify-center bg-gray-100 min-h-150 md:min-h-120">
+      <div className="flex flex-col lg:flex-row items-center justify-between w-[60%] lg:bg-white p-12 text-center">
         <Image src={Logo} alt="logo" />
 
         <main className="flex flex-col items-center gap-4">

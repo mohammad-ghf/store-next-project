@@ -13,7 +13,7 @@ import Link from "next/link";
 
 const DiscountSection = () => {
   return (
-    <section className="overflow-hidden rounded-2xl bg-red-600 py-8 text-white select-none">
+    <section className="overflow-hidden rounded-2xl bg-blue-600 py-8 text-white select-none">
       {/* Header */}
       <div className="mb-8 flex items-center justify-center gap-3">
         <BadgePercent size={42} />
@@ -51,7 +51,7 @@ const DiscountSection = () => {
                         className="h-full w-full object-contain transition-transform duration-500 group-hover:-rotate-1"
                       />
 
-                      <span className="absolute bottom-3 left-3 flex h-10 min-w-10 items-center justify-center rounded-full bg-red-600 px-2 text-sm font-bold text-white transition-colors duration-300 group-hover:bg-white group-hover:text-red-600">
+                      <span className="absolute bottom-3 left-3 flex h-10 min-w-10 items-center justify-center rounded-full bg-blue-600 px-2 text-sm font-bold text-white transition-colors duration-300 group-hover:bg-white group-hover:text-red-600">
                         {product.discountPercentage}٪
                       </span>
                     </div>
@@ -70,7 +70,7 @@ const DiscountSection = () => {
                         </span>
 
                         <div className="flex items-center justify-between gap-2">
-                          <span className="text-lg font-bold text-red-600 transition-colors duration-500 group-hover:text-white">
+                          <span className="text-lg font-bold transition-colors duration-500 group-hover:text-white">
                             {product.discountedPrice.toLocaleString("fa-IR")}
                           </span>
 

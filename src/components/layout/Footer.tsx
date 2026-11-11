@@ -36,8 +36,8 @@ const Footer = () => {
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-3 lg:grid-cols-5">
           {/* Brand */}
           <div className="col-span-2 space-y-4 md:col-span-1">
-            <Link href="/" className="inline-block text-2xl font-extrabold">
-              <Image src={Logo} alt="logo" />
+            <Link href="/" className="inline-block w-55 sm:w-40">
+              <Image src={Logo} alt="logo"  />
             </Link>
 
             <p className="text-sm leading-7 text-muted-foreground">
