@@ -14,12 +14,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="fa" dir="rtl">
       <body className={`${vazirmatn.variable}`}>
-          <Providers>
-            <StoreLayout>
-              {children}
-              <Toaster position="top-center" richColors />
-            </StoreLayout>
-          </Providers>
+        <Providers>
+          <StoreLayout>
+            {children}
+            <Toaster position="top-center" richColors />
+          </StoreLayout>
+        </Providers>
       </body>
     </html>
   );

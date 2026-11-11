@@ -4,9 +4,13 @@ const discountSettings = [
   { category: "digital", discountPercentage: 15 },
   { category: "digital", discountPercentage: 20 },
   { category: "home-appliances", discountPercentage: 10 },
+  { category: "home-appliances", discountPercentage: 10 },
+  { category: "mobile", discountPercentage: 12 },
   { category: "mobile", discountPercentage: 12 },
   { category: "laptop", discountPercentage: 18 },
+  { category: "laptop", discountPercentage: 18 },
   { category: "gaming", discountPercentage: 25 },
+  { category: "clothing", discountPercentage: 30 },
   { category: "clothing", discountPercentage: 30 },
 ];
 

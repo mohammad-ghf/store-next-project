@@ -7,11 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
-
 import {
   registerSchema,
   type RegisterFormData,
 } from "@/schemas/register.schema";
+import PasswordInput from "@/components/ui/password-input";
 
 const RegisterPage = () => {
   const router = useRouter();
@@ -33,7 +33,6 @@ const RegisterPage = () => {
 
   const onSubmit = (data: RegisterFormData) => {
     const normalizedId = data.id.trim();
-
     const success = registerUser(normalizedId, data.password);
 
     if (!success) {
@@ -76,10 +75,9 @@ const RegisterPage = () => {
         <div>
           <label htmlFor="password">رمز عبور</label>
 
-          <Input
+          <PasswordInput
             id="password"
-            type="password"
-            autoComplete="new-password"
+            autoComplete="current-password"
             placeholder="رمز عبور خود را وارد کنید"
             {...register("password")}
           />
@@ -94,11 +92,10 @@ const RegisterPage = () => {
         <div>
           <label htmlFor="confirmPassword">تکرار رمز عبور</label>
 
-          <Input
+          <PasswordInput
             id="confirmPassword"
-            type="password"
-            autoComplete="new-password"
-            placeholder="رمز عبور را دوباره وارد کنید"
+            autoComplete="current-password"
+            placeholder="رمز عبور خود را دوباره وارد کنید"
             {...register("confirmPassword")}
           />
 

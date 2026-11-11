@@ -3,16 +3,12 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
-
-import {
-  loginSchema,
-  type LoginFormData,
-} from "@/schemas/login.schema";
+import { loginSchema, type LoginFormData } from "@/schemas/login.schema";
+import PasswordInput from "@/components/ui/password-input";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -34,7 +30,7 @@ const LoginPage = () => {
     const success = loginWithCredentials(data.id, data.password);
 
     if (!success) {
-      toast.error("شناسه یا رمز عبور اشتباه است.");
+      toast.error("نام کاربری یا رمز عبور اشتباه است.");
       return;
     }
 
@@ -59,18 +55,14 @@ const LoginPage = () => {
           />
 
           {errors.id && (
-            <p className="mt-1 text-sm text-destructive">
-              {errors.id.message}
-            </p>
+            <p className="mt-1 text-sm text-destructive">{errors.id.message}</p>
           )}
         </div>
 
         <div>
           <label htmlFor="password">رمز عبور</label>
-
-          <Input
+          <PasswordInput
             id="password"
-            type="password"
             autoComplete="current-password"
             placeholder="رمز عبور خود را وارد کنید"
             {...register("password")}
